@@ -1,0 +1,9 @@
+only shrink larger
+# convert pic.png    -resize 64x64\>  shrink_pic.gif
+
+resize multiple
+# convert '*.png' -resize 320x240 thumbnail%03d.png
+
+change file format from jpg to png
+# mogrify -format png *.jpg
+

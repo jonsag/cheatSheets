@@ -1,0 +1,6 @@
+copy partition to image
+# dd if=/dev/<PARTITION> conv=sync,noerror bs=64K | gzip -c  > <PATH TO>/<BACKUP>.gz
+
+restore image to partition
+# gunzip -c <PATH TO>/<BACKUP>.gz | dd of=/dev/<PARTITION>
+

@@ -1,0 +1,53 @@
+The database server needs to be running to do any of these checks. Log in as 'root' via SSH and:
+
+Shows you if any need repair:
+# myisamchk --check /var/lib/mysql/*/*.MYI
+
+Then try 'safe-recover' first:
+# myisamchk --safe-recover /var/lib/mysql/*/*.MYI
+
+and, if neither that nor this works:
+# myisamchk --recover /var/lib/mysql/*/*.MYI
+
+Then use the 'force' flag:
+# myisamchk --safe-recover --extend-check --force /var/lib/mysql/*/*.MYI
+or:
+#myisamchk --recover --extend-check --force /var/lib/mysql/*/*.MYI
+
+reapir
+# mysqlcheck --all-databases -r
+# mysqlcheck -u root -p --all-databases -r
+
+analyze
+# mysqlcheck --all-databases -a
+
+optimize
+# mysqlcheck --all-databases -o
+
+find and count rows with same value in hash field, from table videmetadata
+mysql> select hash, count(*) as c from videometadata group by hash having c >1 order by c desc;
+
+delete the last duplicate on the column hash, from table videometadata
+mysql> delete from videometadata where intid in ( select intid from ( select intid from videometadata a group by hash having count(*) > 1 ) b );
+
+delete all data in table tablename
+mysql> TRUNCATE TABLE tablename;
+
+get size of databases
+mysql > SELECT table_schema "Data Base Name", SUM( data_length + index_length) / 1024 / 1024 
+"Data Base Size in MB" FROM information_schema.TABLES GROUP BY table_schema ;
+
+get size of tables in database (replace shema_name with your database)
+mysql > SELECT TABLE_NAME, table_rows, data_length, index_length, 
+round(((data_length + index_length) / 1024 / 1024),2) "Size in MB"
+FROM information_schema.TABLES WHERE table_schema = "schema_name";
+
+
+
+
+
+
+random sqls:
+mysql> SELECT country, COUNT(*) AS `times` FROM fail2ban GROUP BY country ORDER BY `times` DESC;
+mysql> SELECT isp, COUNT(*) AS `times` FROM fail2ban GROUP BY isp ORDER BY `times` DESC;
+mysql> SELECT CONCAT(HOUR(timestamp), ':00-', HOUR(timestamp)+1, ':00') AS Hours, COUNT(*) AS `usage` FROM fail2ban group by hour(timestamp);

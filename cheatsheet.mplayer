@@ -1,0 +1,17 @@
+##### GUI #####
+o		toggle osd information, off, elapsed, elapsed/total
+
+arrow keys	left-right: 10 sec, up-down: 1 min
+
+pgup pgdown	10 min
+
+[ ]  		playback speed 10%
+
+{ }		half/double speed
+
+backspace	reset speed to normal
+
+s		take screenshot
+
+S		start/stop taking screenshots
+

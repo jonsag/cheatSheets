@@ -1,0 +1,11 @@
+find open ports
+# netstat --listen
+
+display open ports and established TCP connections
+# netstat -vatn
+
+display only open UDP ports
+# netstat -vaun
+
+see FQDN (full dns hostname)
+# netstat -vat

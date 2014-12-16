@@ -1,0 +1,5 @@
+add prefix to files
+# for filename in *; do mv "$filename" "<PREFIX>.$filename"; done;
+
+replace string in filename
+# find . -name "*.avi" -print | awk '{ f=$0; sub( ".firends." , "." ); print "mv " f " " $0 }' | sh

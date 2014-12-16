@@ -1,0 +1,87 @@
+syntax
+# rsync [OPTIONS] <SOURCE> <DESTINATION>
+
+sync two directories showing progress
+# rsync -azvr --progress SG/Video/iomega1/Svenskt /mnt/tmp/
+
+sync two directories in a local computer
+# rsync -zvr /var/opt/installation/inventory/ /root/temp
+
+    -z is to enable compression
+    -v verbose
+    -r indicates recursive
+
+preserve timestamps during sync
+rsync -azv /var/opt/installation/inventory/ /root/temp/
+
+-a option does the following,
+    recursive mode
+    preserves symbolic links
+    preserves permissions
+    preserves timestamp
+    preserves owner and group
+
+synchronize files from local to remote
+# rsync -avz /root/temp/ thegeekstuff@192.168.200.10:/home/thegeekstuff/temp/
+
+synchronize files from remote to local
+# rsync -avz thegeekstuff@192.168.200.10:/var/lib/rpm /root/temp
+
+do NOT overwrite the modified files at the destination
+# rsync -avzu thegeekstuff@192.168.200.10:/var/lib/rpm /root/temp
+
+-u option
+   do not overwrite a file at the destination
+
+synchronize only the directory tree structure
+# rsync -v -d thegeekstuff@192.168.200.10:/var/lib/ .
+
+-d option
+   synchronize only directory tree
+
+view the rsync progress during transfer
+# rsync -avz --progress thegeekstuff@192.168.200.10:/var/lib/rpm/ /root/temp/
+
+--progress option
+	  displays detailed progress of rsync execution
+
+delete the files created at the target
+# rsync -avz --delete thegeekstuff@192.168.200.10:/var/lib/rpm/ .
+
+--delete option
+	deletes files that are not there in source directory
+
+do not create new file at the target
+# rsync -avz --existing root@192.168.1.2:/var/lib/rpm/ .
+
+--existing option
+	   avoid creating new files at the target
+
+view the changes between source and destination
+# rsync -avzi thegeekstuff@192.168.200.10:/var/lib/rpm/ /root/temp/
+
+-i option
+   displays the item changes
+
+   > specifies that a file is being transferred to the local host.
+   f represents that it is a file.
+   s represents size changes are there.
+   t represents timestamp changes are there.
+   o owner changed
+   g group changed
+
+include and exclude pattern during file transfer
+# rsync -avz --include 'P*' --exclude '*' thegeekstuff@192.168.200.10:/var/lib/rpm/ /root/temp/
+
+do NOT transfer large files
+# rsync -avz --max-size='100K' thegeekstuff@192.168.200.10:/var/lib/rpm/ /root/temp/
+
+transfer the whole file
+# rsync -avzW  thegeekstuff@192.168.200.10:/var/lib/rpm/ /root/temp
+
+-W option
+    transfer the whole file
+
+rsync mv equivalent
+# rsync -a --progress --remove-source-files src/test/ dest
+

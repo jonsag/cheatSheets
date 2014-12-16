@@ -1,0 +1,32 @@
+cd to correct directory
+# cd /usr/src
+
+delete old symlink
+# rm linux
+
+create new symlink
+# ln -s linux-x.x.x linux
+
+cd to source dir
+# cd linux
+
+copy old config
+# cp ../x.x.x-gentoo .config
+
+make config
+# make oldconfig
+
+build kernel and modules
+# make && make modules_install
+
+copy kernel
+# cp arch/x86_64/boot/bzImage /boot/kernel-x.x.x-gentoo
+
+copy system map
+# cp System.map /boot/System.map-x.x.x-gentoo
+
+update grub
+# grub2-mkconfig -o /boot/grub/grub.cfg
+
+rebuild kernel modules
+# emerge --ask @module-rebuild
